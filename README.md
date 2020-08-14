@@ -85,5 +85,4 @@ throw BizException.notExist("not exist");
 ```
 
 ## sample project
-HelloController in [springboot-demo](https://github.com/wellsemon/springboot
--demo/tree/master/api-rest)
+HelloController in [springboot-demo](https://github.com/wellsemon/springboot-demo/tree/master/api-rest)
