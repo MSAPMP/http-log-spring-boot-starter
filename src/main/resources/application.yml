@@ -1,0 +1,6 @@
+msapmp:
+  http:
+    log:
+      request:
+        body:
+          ignore-uris: /favicon.ico

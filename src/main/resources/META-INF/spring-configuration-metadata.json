@@ -1,0 +1,129 @@
+{
+  "groups": [
+    {
+      "name": "msapmp.http.log",
+      "type": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties",
+      "sourceType": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties"
+    },
+    {
+      "name": "msapmp.http.log.request",
+      "type": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties$Request",
+      "sourceType": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties$Request"
+    },
+    {
+      "name": "msapmp.http.log.response",
+      "type": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties$Response",
+      "sourceType": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties$Response"
+    }
+  ],
+  "properties": [
+    {
+      "name": "msapmp.http.log",
+      "type": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties",
+      "sourceType": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties"
+    },
+    {
+      "name": "msapmp.http.log.registry-uris",
+      "type": "java.util.Set<java.lang.String>",
+      "sourceType": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties",
+      "description": "registry uris of HTTP Filter to print log, according to servlet specification",
+      "defaultValue": "/*"
+    },
+    {
+      "name": "msapmp.http.log.filter-uris",
+      "type": "java.util.Set<java.lang.String>",
+      "sourceType": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties",
+      "description": "filter uris of HTTP Filter to print log, according to Ant-style path patterns, prior than registry-uris",
+      "defaultValue": "/*"
+    },
+    {
+      "name": "msapmp.http.log.request.body.ignore-uris",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties$Body",
+      "description": "Comma-separated list of uris for which request body's log should not be ignored."
+    },
+    {
+      "name": "msapmp.http.log.response.body.ignore-uris",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties$Body",
+      "description": "Comma-separated list of uris for which response body's log should not be ignored."
+    }
+  ],
+  "hints": [
+    {
+      "name": "msapmp.http.log.registry-uris",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties"
+          }
+        }
+      ],
+      "values": [
+        {
+          "value": "/*"
+        },
+        {
+          "value": "/path"
+        },
+        {
+          "value": "/path/*.suffix"
+        }
+      ]
+    },
+    {
+      "name": "msapmp.http.log.filter-uris",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties"
+          }
+        }
+      ],
+      "values": [
+        {
+          "value": "/a"
+        },
+        {
+          "value": "/a*"
+        },
+        {
+          "value": "/*a"
+        },
+        {
+          "value": "/a/*"
+        },
+        {
+          "value": "/a/**/a"
+        },
+        {
+          "value": "/*/*"
+        }
+      ]
+    },
+    {
+      "name": "msapmp.http.log.request.body.ignore-uris",
+      "providers": [
+        {
+          "name": "class-reference",
+          "parameters": {
+            "target": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties$Body"
+          }
+        }
+      ]
+    },
+    {
+      "name": "msapmp.http.log.response.body.ignore-uris",
+      "providers": [
+        {
+          "name": "class-reference",
+          "parameters": {
+            "target": "com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties$Body"
+          }
+        }
+      ]
+    }
+  ]
+}
