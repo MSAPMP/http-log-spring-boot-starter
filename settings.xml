@@ -18,8 +18,8 @@
                 </repository>
                 <repository>
                     <id>github</id>
-                    <name>GitHub wellsemon Apache Maven Packages</name>
-                    <url>https://maven.pkg.github.com/wellsemon/http-log-spring-boot-starter</url>
+                    <name>GitHub MSAPMP Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/MSAPMP/http-log-spring-boot-starter</url>
                 </repository>
             </repositories>
         </profile>
@@ -28,7 +28,7 @@
     <servers>
         <server>
             <id>github</id>
-            <username>wellsemon</username>
+            <username>MSAPMP</username>
             <password>${env.GITHUB_TOKEN}</password>
         </server>
     </servers>
