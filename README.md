@@ -18,6 +18,24 @@ add dependency into pom xml, add auto configure the filter to record http log.
  client 
 
 # Usage
+## configure in pom.xml
+Usage
+### 1.Add repository first
+```
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+```
+### 2.Add dependency
+```
+<dependency>
+    <groupId>com.github.msapmp</groupId>
+    <artifactId>http-log-spring-boot-starter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
 ## Config in application.yml
 ```
 msapmp:
