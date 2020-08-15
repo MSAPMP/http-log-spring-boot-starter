@@ -96,7 +96,7 @@
         <repository>
             <id>github</id>
             <name>GitHub wellsemon Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/wellsemon/http-log-spring-boot-starter</url>
+            <url>https://maven.pkg.github.com/MSAPMP/http-log-spring-boot-starter</url>
         </repository>
     </distributionManagement>
 </project>
