@@ -30,7 +30,7 @@ Usage
 ### 2.Add dependency
 ```
 <dependency>
-    <groupId>com.github.msapmp</groupId>
+    <groupId>com.github.MSAPMP</groupId>
     <artifactId>http-log-spring-boot-starter</artifactId>
     <version>1.0.0</version>
 </dependency>
