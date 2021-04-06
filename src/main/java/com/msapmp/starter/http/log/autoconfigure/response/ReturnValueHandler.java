@@ -28,6 +28,11 @@ public class ReturnValueHandler implements HandlerMethodReturnValueHandler {
       ModelAndViewContainer mavContainer,
       NativeWebRequest webRequest)
       throws Exception {
+    if (null != returnType.getMethodAnnotation(ResponseConfigIgnore.class)) {
+      handler.handleReturnValue(returnValue, returnType, mavContainer, webRequest);
+      return;
+    }
+
     ResponseResult<Object> result = ResponseConstant.OK;
 
     result.setLogId(HttpLogHolder.getId());

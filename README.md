@@ -15,11 +15,11 @@ add dependency into pom xml, add auto configure the filter to record http log.
 }
 ```
 * custom BizException, can be set code and message those will be returned to
- client 
+ client
+* don't wrap values returned by methods with annotation ResponseConfigIngore, and these methods are invoked by feign clients usually
 
 # Usage
 ## configure in pom.xml
-Usage
 ### 1.Add repository first
 ```
 <repository>
@@ -55,13 +55,18 @@ msapmp:
           ignore-uris: /ignore-uri-1,/ignore-uri-2
 ```
 
-## Config in pom.xml
-```
-<dependency>
-    <groupId>com.msapmp.starter</groupId>
-    <artifactId>http-log-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
-</dependency>
+## Config in Controller Classes with ResponseConfigIgnore
+* method below returns String "hi" not ResponseResult
+
+```java
+@RestController
+public class HiController {
+ @GetMapping("/v1/hi")
+ @ResponseConfigIgnore
+ public String hi() {
+  return "hi";
+ }
+}
 ```
 
 # Samples
