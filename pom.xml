@@ -4,7 +4,7 @@
 
     <groupId>com.msapmp.starter</groupId>
     <artifactId>http-log-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
