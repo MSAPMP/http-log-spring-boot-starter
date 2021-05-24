@@ -1,27 +1,15 @@
 package com.msapmp.starter.http.log.autoconfigure.filter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.msapmp.starter.http.log.autoconfigure.filter.bean.HttpLog;
 import com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties;
 import com.msapmp.starter.http.log.autoconfigure.thread.HttpLogHolder;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.util.AntPathMatcher;
@@ -31,6 +19,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 import org.springframework.web.util.WebUtils;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
 
 @Slf4j
 @NoArgsConstructor
@@ -118,7 +116,7 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
 
       boolean ignoreRequestBody = false;
       if (!CollectionUtils
-      .isEmpty(httpLogProperties.getRequest().getBody().getIgnoreUris())) {
+          .isEmpty(httpLogProperties.getRequest().getBody().getIgnoreUris())) {
         Set<String> ignoreUris = httpLogProperties.getRequest().getBody().getIgnoreUris();
         for (String ignoreUri : ignoreUris) {
           if (pathMatcher.match(ignoreUri, requestURI)) {
@@ -138,7 +136,7 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
 
       boolean ignoreResponseBody = false;
       if (!CollectionUtils
-      .isEmpty(httpLogProperties.getResponse().getBody().getIgnoreUris())) {
+          .isEmpty(httpLogProperties.getResponse().getBody().getIgnoreUris())) {
         Set<String> ignoreUris = httpLogProperties.getResponse().getBody().getIgnoreUris();
 
         for (String ignoreUri : ignoreUris) {
@@ -156,7 +154,7 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
 
       httpLog.setExecTime(System.currentTimeMillis() - startTime);
 
-      log.info("http log: {}", httpLog);
+      log.info("http log: {}", StringEscapeUtils.unescapeJava(JSONObject.toJSONString(httpLog)));
 
       updateResponse(response);
     }
