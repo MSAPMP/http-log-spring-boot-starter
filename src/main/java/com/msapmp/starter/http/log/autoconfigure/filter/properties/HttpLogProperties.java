@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "msapmp.http.log")
 public class HttpLogProperties {
   private Set<String> registryUris = Collections.singleton("/*");
-  private Set<String> filterUris = Collections.singleton("/*");
+  private Set<String> filterUris = Collections.singleton("/**");
   private Request request = new Request();
   private Response response = new Response();
 
