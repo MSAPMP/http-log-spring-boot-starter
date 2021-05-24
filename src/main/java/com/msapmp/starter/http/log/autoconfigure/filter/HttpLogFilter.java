@@ -1,6 +1,5 @@
 package com.msapmp.starter.http.log.autoconfigure.filter;
 
-import com.alibaba.fastjson.JSONObject;
 import com.msapmp.starter.http.log.autoconfigure.filter.bean.HttpLog;
 import com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties;
 import com.msapmp.starter.http.log.autoconfigure.thread.HttpLogHolder;
@@ -118,9 +117,8 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
       httpLog.setRequestParameters(request.getParameterMap());
 
       boolean ignoreRequestBody = false;
-      if (null != httpLogProperties
-          && !CollectionUtils
-          .isEmpty(httpLogProperties.getRequest().getBody().getIgnoreUris())) {
+      if (!CollectionUtils
+      .isEmpty(httpLogProperties.getRequest().getBody().getIgnoreUris())) {
         Set<String> ignoreUris = httpLogProperties.getRequest().getBody().getIgnoreUris();
         for (String ignoreUri : ignoreUris) {
           if (pathMatcher.match(ignoreUri, requestURI)) {
@@ -139,9 +137,8 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
       httpLog.setResponseStatus(response.getStatus());
 
       boolean ignoreResponseBody = false;
-      if (null != httpLogProperties
-          && !CollectionUtils
-          .isEmpty(httpLogProperties.getResponse().getBody().getIgnoreUris())) {
+      if (!CollectionUtils
+      .isEmpty(httpLogProperties.getResponse().getBody().getIgnoreUris())) {
         Set<String> ignoreUris = httpLogProperties.getResponse().getBody().getIgnoreUris();
 
         for (String ignoreUri : ignoreUris) {
@@ -159,7 +156,7 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
 
       httpLog.setExecTime(System.currentTimeMillis() - startTime);
 
-      log.info(JSONObject.toJSONString(httpLog));
+      log.info("http log: {}", httpLog);
 
       updateResponse(response);
     }

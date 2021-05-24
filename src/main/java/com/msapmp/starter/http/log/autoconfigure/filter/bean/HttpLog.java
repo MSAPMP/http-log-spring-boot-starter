@@ -15,10 +15,10 @@ public class HttpLog {
   private String requestMethod;
   private Map<String, Object> headers;
   private Map<String, String[]> requestParameters;
-  private String requestBody;
+  private Object requestBody;
   private String method;
   private int responseStatus;
-  private String responseBody;
+  private Object responseBody;
   private Map<String, String> exception;
   private Long execTime;
 }
