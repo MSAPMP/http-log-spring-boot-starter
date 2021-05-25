@@ -4,12 +4,26 @@ import com.alibaba.fastjson.JSONObject;
 import com.msapmp.starter.http.log.autoconfigure.filter.bean.HttpLog;
 import com.msapmp.starter.http.log.autoconfigure.filter.properties.HttpLogProperties;
 import com.msapmp.starter.http.log.autoconfigure.thread.HttpLogHolder;
+import com.msapmp.starter.http.log.autoconfigure.util.JsonUtil;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.util.AntPathMatcher;
@@ -19,16 +33,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 import org.springframework.web.util.WebUtils;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.*;
 
 @Slf4j
 @NoArgsConstructor
@@ -154,7 +158,7 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
 
       httpLog.setExecTime(System.currentTimeMillis() - startTime);
 
-      log.info("http log: {}", StringEscapeUtils.unescapeJava(JSONObject.toJSONString(httpLog)));
+      log.info("http log: {}", JSONObject.toJSONString(httpLog));
 
       updateResponse(response);
     }
@@ -169,7 +173,7 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
     }
   }
 
-  private String getRequestBody(HttpServletRequest request) {
+  private Object getRequestBody(HttpServletRequest request) {
     String requestBody = null;
     ContentCachingRequestWrapper wrapper =
         WebUtils.getNativeRequest(request, ContentCachingRequestWrapper.class);
@@ -182,10 +186,10 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
         log.error("getRequestBody error", e);
       }
     }
-    return requestBody;
+    return JsonUtil.isValid(requestBody) ? JSONObject.toJSON(requestBody) : requestBody;
   }
 
-  private String getResponseBody(HttpServletResponse response) {
+  private Object getResponseBody(HttpServletResponse response) {
     String responseBody = null;
     ContentCachingResponseWrapper wrapper =
         WebUtils.getNativeResponse(response, ContentCachingResponseWrapper.class);
@@ -198,7 +202,7 @@ public class HttpLogFilter extends OncePerRequestFilter implements Ordered {
         log.error("getResponseBody error", e);
       }
     }
-    return responseBody;
+    return JsonUtil.isValid(responseBody) ? JSONObject.toJSON(responseBody) : responseBody;
   }
 
   private void updateResponse(HttpServletResponse response) throws IOException {
